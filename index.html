@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ember & Ash — A modern fine-dining experience in the heart of the city. Reserve your table today and discover cuisine crafted with passion, fire, and soul." />
+  <meta name="keywords" content="fine dining, restaurant, Ember Ash, reservation, gourmet food, chef" />
+  <meta property="og:title" content="Ember & Ash — Fine Dining" />
+  <meta property="og:description" content="A modern fine-dining experience. Cuisine crafted with passion, fire, and soul." />
+  <meta property="og:type" content="website" />
+  <title>Ember &amp; Ash — Fine Dining Experience</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Inline SVG favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🔥</text></svg>" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       PAGE LOADER
+  ═══════════════════════════════════════ -->
+  <div id="page-loader" role="status" aria-label="Loading">
+    <div class="loader-logo">Ember <span>&</span> Ash</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CUSTOM CURSOR
+  ═══════════════════════════════════════ -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Ember & Ash Home">
+      Ember <em>&</em> Ash
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#chef">Chef</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#reservation" class="nav-cta">Reserve</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+  <nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile navigation">
+    <a href="#about"        class="drawer-link">About</a>
+    <a href="#menu"         class="drawer-link">Menu</a>
+    <a href="#chef"         class="drawer-link">Chef</a>
+    <a href="#gallery"      class="drawer-link">Gallery</a>
+    <a href="#testimonials" class="drawer-link">Reviews</a>
+    <a href="#contact"      class="drawer-link">Contact</a>
+    <a href="#reservation"  class="drawer-link" style="color:var(--ember)">Reserve a Table</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Fine Dining &mdash; Est. 2012</div>
+
+      <h1 class="hero-title">
+        Where Fire<br>
+        Meets <em>Flavour</em>
+      </h1>
+
+      <p class="hero-subtitle">
+        An intimate dining experience where every dish is a story told through
+        ember, smoke, and season.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#reservation" class="btn-primary" id="hero-reserve-btn">
+          <span>Reserve a Table</span>
+        </a>
+        <a href="#menu" class="btn-outline" id="hero-menu-btn">
+          <span>View Menu</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Marquee ticker -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Open Tuesday – Sunday <em>✦</em> Est. 2012 <em>✦</em> Fine Dining <em>✦</em> Chef's Table Available <em>✦</em> Private Events Welcome <em>✦</em> Award-Winning Cuisine</span>
+        <span>Open Tuesday – Sunday <em>✦</em> Est. 2012 <em>✦</em> Fine Dining <em>✦</em> Chef's Table Available <em>✦</em> Private Events Welcome <em>✦</em> Award-Winning Cuisine</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════════ -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="about-image-wrap reveal-left">
+      <img
+        class="about-img"
+        src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80&auto=format&fit=crop"
+        alt="Interior of Ember & Ash restaurant with warm lighting"
+        loading="lazy"
+      />
+      <div class="about-badge">
+        <strong>2012</strong>
+        <span>Since</span>
+      </div>
+    </div>
+
+    <div class="about-text reveal-right">
+      <div class="section-label">Our Story</div>
+      <h2 id="about-heading" class="section-title char-reveal">
+        Rooted in Craft,<br>Driven by <em>Fire</em>
+      </h2>
+
+      <blockquote class="about-pull-quote">
+        "Food is not just nourishment — it is memory, culture, and the
+        warmth of a flame shared between people."
+      </blockquote>
+
+      <p class="about-body">
+        Ember &amp; Ash was born from a singular obsession: what happens when
+        premium ingredients meet the ancient alchemy of fire? Founded in 2012
+        by Chef Marcus Solène, our kitchen is a laboratory of wood-fired
+        craft — every cut aged, every sauce reduced with patience, every plate
+        a canvas of controlled intensity. We source exclusively from local
+        farms within 80 miles, honoring the land that feeds us.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="12" data-suffix="">0</span>
+          <div class="stat-label">Years</div>
+        </div>
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="18" data-suffix="">0</span>
+          <div class="stat-label">Awards</div>
+        </div>
+        <div class="stat-item reveal">
+          <span class="stat-number" data-target="64" data-suffix="">0</span>
+          <div class="stat-label">Signature Dishes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       MENU
+  ═══════════════════════════════════════ -->
+  <section id="menu" aria-labelledby="menu-heading">
+    <div class="menu-header reveal">
+      <div class="section-label" style="justify-content:center;">Our Menu</div>
+      <h2 id="menu-heading" class="section-title char-reveal">Crafted with <em>Intent</em></h2>
+    </div>
+
+    <!-- Tabs -->
+    <div class="menu-tabs" role="tablist" aria-label="Menu categories">
+      <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="tab-starters"  id="btn-starters"  data-tab="starters">Starters</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-mains"     id="btn-mains"     data-tab="mains">Mains</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-desserts"  id="btn-desserts"  data-tab="desserts">Desserts</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-drinks"    id="btn-drinks"    data-tab="drinks">Drinks</button>
+    </div>
+
+    <!-- Starters -->
+    <div class="tab-panel active" id="tab-starters" role="tabpanel" aria-labelledby="btn-starters">
+      <div class="menu-grid">
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=75&auto=format&fit=crop" alt="Charred Octopus Starter" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Charred Octopus</h3>
+            <p class="menu-card-desc">Wood-fired tentacle, smoked paprika aioli, pickled fennel, and crispy capers on charcoal bread.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$24</span>
+              <span class="menu-card-tag">Signature</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1510693206972-df098062cb71?w=600&q=75&auto=format&fit=crop" alt="Burrata & Heirloom Tomato" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Burrata & Heirloom</h3>
+            <p class="menu-card-desc">Hand-pulled burrata, heirloom tomatoes, aged balsamic glaze, fresh basil oil and sea salt flakes.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$19</span>
+              <span class="menu-card-tag">Seasonal</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1606676539940-12768ce0e762?w=600&q=75&auto=format&fit=crop" alt="Foie Gras Torchon" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Foie Gras Torchon</h3>
+            <p class="menu-card-desc">Poached foie gras, toasted brioche, fig jam, micro arugula, and a Sauternes reduction.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$32</span>
+              <span class="menu-card-tag">Chef's Pick</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Mains -->
+    <div class="tab-panel" id="tab-mains" role="tabpanel" aria-labelledby="btn-mains">
+      <div class="menu-grid">
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=75&auto=format&fit=crop" alt="Dry-Aged Ribeye" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Dry-Aged Ribeye</h3>
+            <p class="menu-card-desc">42-day dry-aged 14oz ribeye, bone marrow butter, smoked salt crust, truffle jus, and gratin potato.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$68</span>
+              <span class="menu-card-tag">Signature</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=75&auto=format&fit=crop" alt="Pan-Seared Sea Bass" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Pan-Seared Sea Bass</h3>
+            <p class="menu-card-desc">Wild-caught sea bass, saffron beurre blanc, charred leeks, caviar pearls, and crispy skin.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$54</span>
+              <span class="menu-card-tag">Seasonal</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=75&auto=format&fit=crop" alt="Mushroom Wellington" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Mushroom Wellington</h3>
+            <p class="menu-card-desc">King oyster, porcini duxelles, puff pastry, chestnut purée, and a red wine reduction. Vegetarian.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$42</span>
+              <span class="menu-card-tag">Vegetarian</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Desserts -->
+    <div class="tab-panel" id="tab-desserts" role="tabpanel" aria-labelledby="btn-desserts">
+      <div class="menu-grid">
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=75&auto=format&fit=crop" alt="Dark Chocolate Fondant" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Dark Chocolate Fondant</h3>
+            <p class="menu-card-desc">72% Valrhona chocolate, molten centre, salted caramel ice cream, and spiced praline dust.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$18</span>
+              <span class="menu-card-tag">Signature</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=75&auto=format&fit=crop" alt="Crème Brûlée" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Vanilla Crème Brûlée</h3>
+            <p class="menu-card-desc">Classic Madagascar vanilla custard, torched caramel crust, fresh berries, and shortbread.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$16</span>
+              <span class="menu-card-tag">Classic</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=75&auto=format&fit=crop" alt="Tarte Tatin" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Apple Tarte Tatin</h3>
+            <p class="menu-card-desc">Caramelised Granny Smith, flaky butter pastry, Calvados sauce, and clotted cream.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$15</span>
+              <span class="menu-card-tag">Seasonal</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Drinks -->
+    <div class="tab-panel" id="tab-drinks" role="tabpanel" aria-labelledby="btn-drinks">
+      <div class="menu-grid">
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=75&auto=format&fit=crop" alt="Ember Smoked Negroni" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Ember Smoked Negroni</h3>
+            <p class="menu-card-desc">Hickory-smoked Campari, gin, sweet vermouth, served over a single large ice sphere.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$22</span>
+              <span class="menu-card-tag">Signature</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=75&auto=format&fit=crop" alt="Rosé Wine" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Provençal Rosé</h3>
+            <p class="menu-card-desc">Château d'Esclans Whispering Angel, 2022. Pale salmon, fresh strawberry and white peach notes.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$18</span>
+              <span class="menu-card-tag">Wine</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=600&q=75&auto=format&fit=crop" alt="Mocktail" loading="lazy" />
+            <div class="menu-card-overlay"></div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">Golden Hour Spritz</h3>
+            <p class="menu-card-desc">Turmeric, mango, ginger shrub, sparkling water, edible gold dust. Zero-proof luxury.</p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">$14</span>
+              <span class="menu-card-tag">Non-Alcoholic</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CHEF
+  ═══════════════════════════════════════ -->
+  <section id="chef" aria-labelledby="chef-heading">
+    <div class="chef-inner">
+      <div class="chef-text reveal-left">
+        <div class="section-label">Behind the Fire</div>
+        <h2 id="chef-heading" class="chef-name char-reveal">
+          Chef<br><em>Marcus</em><br>Solène
+        </h2>
+        <p class="chef-bio">
+          Trained under three Michelin-starred kitchens across Paris, Tokyo, and New York,
+          Marcus returned home to create something deeply personal. His philosophy is simple:
+          respect the ingredient, trust the fire, and let the season lead. Every menu at
+          Ember &amp; Ash changes with the harvest, never the trend.
+        </p>
+        <div class="chef-signature">Marcus Solène</div>
+      </div>
+
+      <div class="chef-image-wrap reveal-right">
+        <div class="chef-accent" aria-hidden="true"></div>
+        <img
+          class="chef-img"
+          src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80&auto=format&fit=crop"
+          alt="Chef Marcus Solène in the kitchen"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       GALLERY
+  ═══════════════════════════════════════ -->
+  <section id="gallery" aria-labelledby="gallery-heading">
+    <div class="gallery-header reveal">
+      <div class="section-label" style="justify-content:center;">Visual Stories</div>
+      <h2 id="gallery-heading" class="section-title char-reveal">A Feast for <em>the Eyes</em></h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=800&q=75&auto=format&fit=crop" alt="Plated gourmet dish" loading="lazy" />
+        <div class="gallery-caption"><span>Seasonal Harvest Plate</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=75&auto=format&fit=crop" alt="Restaurant ambience" loading="lazy" />
+        <div class="gallery-caption"><span>The Dining Room</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=75&auto=format&fit=crop" alt="Colourful salad dish" loading="lazy" />
+        <div class="gallery-caption"><span>Garden Salad Composition</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&q=75&auto=format&fit=crop" alt="Breakfast spread" loading="lazy" />
+        <div class="gallery-caption"><span>Weekend Brunch Table</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=75&auto=format&fit=crop" alt="Dark moody bar" loading="lazy" />
+        <div class="gallery-caption"><span>The Ember Bar</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&q=75&auto=format&fit=crop" alt="Cheese board" loading="lazy" />
+        <div class="gallery-caption"><span>Artisan Cheese Selection</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       TESTIMONIALS
+  ═══════════════════════════════════════ -->
+  <section id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="testimonials-header reveal">
+      <div class="section-label" style="justify-content:center;">Guest Words</div>
+      <h2 id="testimonials-heading" class="section-title char-reveal">What Our Guests <em>Say</em></h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <article class="testimonial-card reveal">
+        <span class="quote-icon" aria-hidden="true">&ldquo;</span>
+        <p class="testimonial-text">
+          An absolutely transcendent evening. The charred octopus alone was worth the trip — a
+          masterclass in balancing smoke, acidity, and texture. Ember &amp; Ash is in a league of its own.
+        </p>
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <div class="reviewer-name">Isabelle Fontaine</div>
+        <div class="reviewer-title">Food Critic, Le Monde Culinaire</div>
+      </article>
+
+      <article class="testimonial-card reveal">
+        <span class="quote-icon" aria-hidden="true">&ldquo;</span>
+        <p class="testimonial-text">
+          We celebrated our anniversary here and it was pure magic. Every detail — from the
+          candlelight to the wine pairing — was considered. Chef Marcus's passion radiates through every bite.
+        </p>
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <div class="reviewer-name">James & Clara Whitfield</div>
+        <div class="reviewer-title">Returning Guests Since 2018</div>
+      </article>
+
+      <article class="testimonial-card reveal">
+        <span class="quote-icon" aria-hidden="true">&ldquo;</span>
+        <p class="testimonial-text">
+          The tasting menu is a journey — eight courses that build a narrative. I've dined at Noma,
+          Eleven Madison Park, and Osteria Francescana. Ember &amp; Ash belongs in that conversation.
+        </p>
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <div class="reviewer-name">David Chen</div>
+        <div class="reviewer-title">Michelin Inspector, 2024</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       RESERVATION
+  ═══════════════════════════════════════ -->
+  <section id="reservation" aria-labelledby="reservation-heading">
+    <div class="reservation-inner">
+      <div class="reveal">
+        <div class="section-label">Book Your Experience</div>
+        <h2 id="reservation-heading" class="section-title">Reserve a <em>Table</em></h2>
+        <p style="color:var(--cream-dim);font-size:0.9rem;margin-top:0.8rem;letter-spacing:0.03em;">
+          We recommend booking at least 48 hours in advance. For parties of 8+, please call us directly.
+        </p>
+      </div>
+
+      <form class="reservation-form-card reveal" id="reservation-form" novalidate aria-label="Table reservation form">
+        <div class="form-row">
+          <div class="form-group" id="fg-name">
+            <input type="text" id="res-name" name="name" placeholder=" " autocomplete="name" required aria-required="true" aria-describedby="err-name" />
+            <label for="res-name">Full Name</label>
+            <span class="field-error" id="err-name" role="alert">Please enter your full name.</span>
+          </div>
+          <div class="form-group" id="fg-email">
+            <input type="email" id="res-email" name="email" placeholder=" " autocomplete="email" required aria-required="true" aria-describedby="err-email" />
+            <label for="res-email">Email Address</label>
+            <span class="field-error" id="err-email" role="alert">Please enter a valid email address.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" id="fg-date">
+            <input type="date" id="res-date" name="date" placeholder=" " required aria-required="true" aria-describedby="err-date" />
+            <label for="res-date">Date</label>
+            <span class="field-error" id="err-date" role="alert">Please select a date.</span>
+          </div>
+          <div class="form-group" id="fg-time">
+            <select id="res-time" name="time" required aria-required="true" aria-describedby="err-time">
+              <option value="" disabled selected></option>
+              <option value="18:00">6:00 PM</option>
+              <option value="18:30">6:30 PM</option>
+              <option value="19:00">7:00 PM</option>
+              <option value="19:30">7:30 PM</option>
+              <option value="20:00">8:00 PM</option>
+              <option value="20:30">8:30 PM</option>
+              <option value="21:00">9:00 PM</option>
+            </select>
+            <label for="res-time">Time</label>
+            <span class="field-error" id="err-time" role="alert">Please select a time.</span>
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group" id="fg-guests">
+            <select id="res-guests" name="guests" required aria-required="true" aria-describedby="err-guests">
+              <option value="" disabled selected></option>
+              <option value="1">1 Guest</option>
+              <option value="2">2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6">6 Guests</option>
+              <option value="7">7 Guests</option>
+            </select>
+            <label for="res-guests">Number of Guests</label>
+            <span class="field-error" id="err-guests" role="alert">Please select number of guests.</span>
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <textarea id="res-requests" name="requests" placeholder=" " rows="3" aria-label="Special requests (optional)"></textarea>
+            <label for="res-requests">Special Requests (optional)</label>
+          </div>
+        </div>
+
+        <div class="form-submit-wrap">
+          <button type="submit" class="btn-submit" id="submit-btn">
+            <span>Confirm Reservation</span>
+          </button>
+        </div>
+
+        <div class="form-success" id="form-success" role="status" aria-live="polite">
+          ✦ &nbsp;Thank you! Your reservation request has been received. We will confirm via email within 24 hours.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════ -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="contact-info reveal-left">
+      <div class="section-label">Find Us</div>
+      <h2 id="contact-heading" class="section-title" style="margin-bottom:2rem;">Come <em>Visit</em></h2>
+
+      <div class="contact-block">
+        <div class="contact-block-label">Address</div>
+        <p>42 Burnwood Lane<br>West Marlow Quarter<br>New York, NY 10012</p>
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-block-label">Reservations</div>
+        <p>
+          <a href="tel:+12125550192">+1 (212) 555-0192</a><br>
+          <a href="mailto:hello@emberandash.com">hello@emberandash.com</a>
+        </p>
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-block-label">Hours</div>
+        <p>
+          Tuesday – Thursday: 5:30 PM – 10:00 PM<br>
+          Friday – Saturday: 5:00 PM – 11:00 PM<br>
+          Sunday: 5:00 PM – 9:00 PM<br>
+          <span style="color:var(--ember);font-size:0.82rem;">Closed Mondays</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="map-wrap reveal-right">
+      <iframe
+        title="Ember &amp; Ash location map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2219901290355!2d-74.00369368400567!3d40.71312937933185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a23e28c1191%3A0x49f75d3281df052a!2sSoHo%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1611680150868!5m2!1sen!2sus"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-logo">Ember <em>&</em> Ash</div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#chef">Chef</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#reservation">Reserve</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="footer-socials" aria-label="Social media links">
+        <a href="#" class="social-link" aria-label="Instagram" rel="noopener noreferrer">
+          <!-- Instagram icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Facebook" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="TripAdvisor" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="OpenTable" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2024 Ember &amp; Ash. All rights reserved.</p>
+      <p class="footer-copy" style="opacity:0.4;">Crafted with passion &amp; fire.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
