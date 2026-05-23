@@ -1,0 +1,12 @@
+{
+  "name": "ember-and-ash",
+  "version": "1.0.0",
+  "description": "Ember & Ash — Fine Dining Restaurant Website",
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "dev": "npx serve . -p 3000"
+  },
+  "keywords": ["restaurant", "fine-dining"],
+  "author": "Ember & Ash",
+  "license": "MIT"
+}
