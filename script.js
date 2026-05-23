@@ -314,73 +314,77 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 }
 
 /* ─────────────────────────────────────────────────────
-   11. RESERVATION FORM VALIDATION
+   11. RESERVATION FORM + EMAILJS INTEGRATION
 ───────────────────────────────────────────────────── */
 const reservationForm = document.getElementById('reservation-form');
-const formSuccess     = document.getElementById('form-success');
+const formSuccess = document.getElementById('form-success');
+const submitBtn = document.getElementById('submit-btn');
+const submitBtnText = submitBtn?.querySelector('span');
 
-// Set minimum date to today
-const dateInput = document.getElementById('res-date');
-if (dateInput) {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  const yyyy = tomorrow.getFullYear();
-  const mm   = String(tomorrow.getMonth() + 1).padStart(2, '0');
-  const dd   = String(tomorrow.getDate()).padStart(2, '0');
-  dateInput.min = `${yyyy}-${mm}-${dd}`;
+const EMAILJS_SERVICE_ID = 'service_8qtx86r';
+const EMAILJS_TEMPLATE_ID = 'template_cdhsysj';
+const EMAILJS_PUBLIC_KEY = 'Kf7G5u5RL0_0JVLDN';
+
+if (window.emailjs) {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+}
+
+function setButtonLoading(isLoading) {
+  if (!submitBtn || !submitBtnText) return;
+  submitBtn.disabled = isLoading;
+  submitBtnText.textContent = isLoading ? 'Sending...' : 'Confirm Reservation';
 }
 
 function showError(fieldGroupId, show) {
   const fg = document.getElementById(fieldGroupId);
   if (!fg) return;
-  if (show) {
-    fg.classList.add('error');
-  } else {
-    fg.classList.remove('error');
-  }
+  fg.classList.toggle('error', show);
 }
 
 function validateForm() {
   let valid = true;
 
-  // Name
   const name = document.getElementById('res-name');
-  if (!name.value.trim() || name.value.trim().length < 2) {
-    showError('fg-name', true); valid = false;
+  const email = document.getElementById('res-email');
+  const date = document.getElementById('res-date');
+  const time = document.getElementById('res-time');
+  const guests = document.getElementById('res-guests');
+
+  const fullName = name.value.trim();
+  const emailValue = email.value.trim();
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (fullName.length < 2) {
+    showError('fg-name', true);
+    valid = false;
   } else {
     showError('fg-name', false);
   }
 
-  // Email
-  const email = document.getElementById('res-email');
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRe.test(email.value.trim())) {
-    showError('fg-email', true); valid = false;
+  if (!emailRe.test(emailValue)) {
+    showError('fg-email', true);
+    valid = false;
   } else {
     showError('fg-email', false);
   }
 
-  // Date
-  const date = document.getElementById('res-date');
   if (!date.value) {
-    showError('fg-date', true); valid = false;
+    showError('fg-date', true);
+    valid = false;
   } else {
     showError('fg-date', false);
   }
 
-  // Time
-  const time = document.getElementById('res-time');
   if (!time.value) {
-    showError('fg-time', true); valid = false;
+    showError('fg-time', true);
+    valid = false;
   } else {
     showError('fg-time', false);
   }
 
-  // Guests
-  const guests = document.getElementById('res-guests');
   if (!guests.value) {
-    showError('fg-guests', true); valid = false;
+    showError('fg-guests', true);
+    valid = false;
   } else {
     showError('fg-guests', false);
   }
@@ -388,45 +392,150 @@ function validateForm() {
   return valid;
 }
 
-// Clear error on input
-['res-name','res-email','res-date','res-time','res-guests'].forEach(id => {
+function getFormPayload() {
+  const full_name = document.getElementById('res-name').value.trim();
+  const email = document.getElementById('res-email').value.trim();
+  const date = document.getElementById('res-date').value;
+  const time = document.getElementById('res-time').value;
+  const guests = document.getElementById('res-guests').value;
+  const special_request = document.getElementById('res-requests').value.trim();
+
+  return {
+    full_name,
+    email,
+    date,
+    time,
+    guests,
+    special_request
+  };
+}
+
+function resetReservationForm() {
+  reservationForm.reset();
+
+  ['fg-name', 'fg-email', 'fg-date', 'fg-time', 'fg-guests'].forEach((id) => {
+    showError(id, false);
+  });
+
+  document.querySelectorAll('.form-group select').forEach((sel) => {
+    const label = sel.parentElement.querySelector('label');
+    if (!label) return;
+    label.style.top = '';
+    label.style.fontSize = '';
+    label.style.color = '';
+  });
+}
+
+function showToast(message, type = 'error') {
+  const existingToast = document.getElementById('reservation-toast');
+  if (existingToast) existingToast.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'reservation-toast';
+  toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.textContent = message;
+
+  toast.style.position = 'fixed';
+  toast.style.top = '24px';
+  toast.style.right = '24px';
+  toast.style.zIndex = '100000';
+  toast.style.maxWidth = 'min(92vw, 360px)';
+  toast.style.padding = '1rem 1.1rem';
+  toast.style.borderRadius = '4px';
+  toast.style.border = type === 'error' ? '1px solid rgba(224,84,84,0.5)' : '1px solid rgba(212,168,83,0.3)';
+  toast.style.background = type === 'error' ? 'rgba(35,14,14,0.98)' : 'rgba(26,20,14,0.98)';
+  toast.style.color = type === 'error' ? '#ffb1b1' : 'var(--gold)';
+  toast.style.boxShadow = '0 18px 50px rgba(0,0,0,0.45)';
+  toast.style.fontSize = '0.9rem';
+  toast.style.lineHeight = '1.5';
+  toast.style.letterSpacing = '0.02em';
+  toast.style.backdropFilter = 'blur(10px)';
+
+  document.body.appendChild(toast);
+
+  window.setTimeout(() => {
+    toast.remove();
+  }, 4500);
+}
+
+// Set minimum date to tomorrow
+const dateInput = document.getElementById('res-date');
+if (dateInput) {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const yyyy = tomorrow.getFullYear();
+  const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+  const dd = String(tomorrow.getDate()).padStart(2, '0');
+  dateInput.min = `${yyyy}-${mm}-${dd}`;
+}
+
+['res-name', 'res-email', 'res-date', 'res-time', 'res-guests'].forEach((id) => {
   const el = document.getElementById(id);
   if (!el) return;
-  el.addEventListener('input', () => {
+
+  const clearError = () => {
     const fgId = `fg-${id.replace('res-', '')}`;
     showError(fgId, false);
-  });
-  el.addEventListener('change', () => {
-    const fgId = `fg-${id.replace('res-', '')}`;
-    showError(fgId, false);
+  };
+
+  el.addEventListener('input', clearError);
+  el.addEventListener('change', clearError);
+});
+
+document.querySelectorAll('.form-group select').forEach((sel) => {
+  sel.addEventListener('change', () => {
+    const label = sel.parentElement.querySelector('label');
+    if (!label) return;
+    if (sel.value) {
+      label.style.top = '0.28rem';
+      label.style.fontSize = '0.63rem';
+      label.style.color = 'var(--ember)';
+    } else {
+      label.style.top = '';
+      label.style.fontSize = '';
+      label.style.color = '';
+    }
   });
 });
 
 if (reservationForm) {
-  reservationForm.addEventListener('submit', (e) => {
+  reservationForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+    if (!window.emailjs) {
+      showToast('Email service is not available right now. Please try again.', 'error');
+      return;
+    }
 
-    const submitBtn = document.getElementById('submit-btn');
+    if (!validateForm()) {
+      showToast('Please complete all required reservation fields.', 'error');
+      return;
+    }
 
-    // Loading state
-    submitBtn.disabled = true;
-    submitBtn.querySelector('span').textContent = 'Confirming…';
+    const payload = getFormPayload();
 
-    // Simulate async submission
-    setTimeout(() => {
+    try {
+      setButtonLoading(true);
+
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload);
+
+      formSuccess.textContent = '✦  Thank you! Your reservation request has been sent successfully.';
       formSuccess.classList.add('show');
-      reservationForm.reset();
-      submitBtn.disabled = false;
-      submitBtn.querySelector('span').textContent = 'Confirm Reservation';
-
-      // Scroll to success message
       formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-      // Hide success after 8s
-      setTimeout(() => formSuccess.classList.remove('show'), 8000);
-    }, 1400);
+      resetReservationForm();
+
+      window.setTimeout(() => {
+        formSuccess.classList.remove('show');
+      }, 8000);
+    } catch (error) {
+      console.error('EmailJS reservation send failed:', error);
+      showToast('Reservation could not be sent. Please try again in a moment.', 'error');
+    } finally {
+      setButtonLoading(false);
+    }
   });
 }
 
