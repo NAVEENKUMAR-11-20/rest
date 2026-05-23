@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
 /* ─────────────────────────────────────────────────────
    AUTHENTICATION — Google Sign-In + page protection
 ───────────────────────────────────────────────────── */
-const GOOGLE_CLIENT_ID = '712973674994-h1ke8bkc6g3b1ps1ldc8do3t45nqrfe5.apps.googleusercontent.com'; // Replace with your Google Cloud OAuth Client ID
+const GOOGLE_CLIENT_ID = '712973674994-sgb511d1pdirtgq851v99pq79c86f2l6.apps.googleusercontent.com'; // Replace with your Google Cloud OAuth Client ID
 
 const pageFileName = window.location.pathname.split('/').pop().toLowerCase();
 const isLoginPage = pageFileName === 'login.html';
