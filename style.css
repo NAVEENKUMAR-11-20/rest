@@ -1399,3 +1399,103 @@ footer {
   .hero-bg { background-attachment: fixed; }
   #reservation { background-attachment: fixed; }
 }
+
+/* =====================================================
+   LOGIN PAGE
+   ===================================================== */
+body.login-body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(196,98,45,0.14), transparent 24%), radial-gradient(circle at bottom right, rgba(212,168,83,0.12), transparent 18%), #0a0806;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 3rem 1.5rem;
+}
+
+.login-card {
+  width: min(540px, 100%);
+  padding: clamp(2rem, 4vw, 3.2rem);
+  background: rgba(12, 10, 7, 0.96);
+  border: 1px solid rgba(196,98,45,0.22);
+  border-radius: 28px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.42);
+  backdrop-filter: blur(20px);
+}
+
+.login-brand {
+  max-width: 380px;
+  margin-bottom: 2rem;
+}
+
+.login-brand .brand-logo {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  margin-bottom: 0.85rem;
+}
+
+.login-brand .brand-logo em {
+  color: var(--ember);
+  font-style: normal;
+}
+
+.login-brand p {
+  color: var(--cream-dim);
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
+#google-button {
+  width: 100%;
+}
+
+.login-error {
+  margin-top: 1.4rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: rgba(69,18,18,0.95);
+  border: 1px solid rgba(224,84,84,0.28);
+  color: #ffb1b1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  display: none;
+}
+
+.login-error.visible {
+  display: block;
+}
+
+.login-note {
+  margin-top: 1.4rem;
+  color: var(--cream-dim);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#logout-btn {
+  margin-left: 1rem;
+}
+
+.drawer-link.logout-link {
+  color: var(--ember);
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .login-card {
+    padding: 2rem;
+    border-radius: 22px;
+  }
+
+  .login-brand .brand-logo {
+    font-size: 2.7rem;
+  }
+}

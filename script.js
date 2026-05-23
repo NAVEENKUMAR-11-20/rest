@@ -17,6 +17,157 @@ window.addEventListener('load', () => {
 });
 
 /* ─────────────────────────────────────────────────────
+   AUTHENTICATION — Google Sign-In + page protection
+───────────────────────────────────────────────────── */
+const GOOGLE_CLIENT_ID = '712973674994-h1ke8bkc6g3b1ps1ldc8do3t45nqrfe5.apps.googleusercontent.com'; // Replace with your Google Cloud OAuth Client ID
+
+const pageFileName = window.location.pathname.split('/').pop().toLowerCase();
+const isLoginPage = pageFileName === 'login.html';
+const isHomePage = pageFileName === '' || pageFileName === 'index.html';
+
+const authLogoutBtn = document.getElementById('logout-btn');
+const drawerLogoutBtn = document.getElementById('drawer-logout-btn');
+const loginErrorEl = document.getElementById('login-error');
+
+function getStoredUser() {
+  try {
+    return JSON.parse(localStorage.getItem('restaurantUser') || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function setStoredUser(user) {
+  localStorage.setItem('restaurantUser', JSON.stringify(user));
+}
+
+function clearStoredUser() {
+  localStorage.removeItem('restaurantUser');
+}
+
+function redirectToLoginPage() {
+  if (!isLoginPage) {
+    window.location.href = 'login.html';
+  }
+}
+
+function redirectToHomePage() {
+  if (!isHomePage) {
+    window.location.href = 'index.html';
+  }
+}
+
+function updateLogoutButtons(show) {
+  [authLogoutBtn, drawerLogoutBtn].forEach((btn) => {
+    if (!btn) return;
+    btn.classList.toggle('hidden', !show);
+  });
+}
+
+function parseJwtToken(token) {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch {
+    return null;
+  }
+}
+
+function showLoginError(message) {
+  if (!loginErrorEl) return;
+  loginErrorEl.textContent = message;
+  loginErrorEl.classList.add('visible');
+}
+
+function handleCredentialResponse(response) {
+  if (!response || !response.credential) {
+    showLoginError('Google sign-in was not completed. Please try again.');
+    return;
+  }
+
+  const profile = parseJwtToken(response.credential);
+  if (!profile || !profile.name || !profile.email) {
+    showLoginError('Unable to read Google profile information. Please try again.');
+    return;
+  }
+
+  setStoredUser({
+    name: profile.name,
+    email: profile.email,
+    image: profile.picture || '',
+  });
+
+  redirectToHomePage();
+}
+
+function configureGoogleSignIn() {
+  if (!isLoginPage || typeof google === 'undefined' || !window.google?.accounts?.id) return;
+
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleCredentialResponse,
+    cancel_on_tap_outside: true,
+  });
+
+  const buttonContainer = document.getElementById('google-button');
+  if (buttonContainer) {
+    google.accounts.id.renderButton(buttonContainer, {
+      theme: 'outline',
+      size: 'large',
+      width: '100%',
+      text: 'continue_with',
+      shape: 'rectangular',
+      logo_alignment: 'left',
+    });
+  }
+}
+
+function initializeAuthGuard() {
+  const currentUser = getStoredUser();
+
+  if (isLoginPage) {
+    if (currentUser) {
+      redirectToHomePage();
+      return;
+    }
+    configureGoogleSignIn();
+    return;
+  }
+
+  if (isHomePage) {
+    if (!currentUser) {
+      redirectToLoginPage();
+      return;
+    }
+    updateLogoutButtons(true);
+  }
+}
+
+if (authLogoutBtn) {
+  authLogoutBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    clearStoredUser();
+    redirectToLoginPage();
+  });
+}
+
+if (drawerLogoutBtn) {
+  drawerLogoutBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    clearStoredUser();
+    closeDrawer();
+    redirectToLoginPage();
+  });
+}
+
+window.addEventListener('load', initializeAuthGuard);
+window.addEventListener('google-loaded', configureGoogleSignIn);
+
+/* ─────────────────────────────────────────────────────
    2. CUSTOM CURSOR
 ───────────────────────────────────────────────────── */
 const cursorDot  = document.getElementById('cursor-dot');
